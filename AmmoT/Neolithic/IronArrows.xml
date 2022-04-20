@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoIronArrows</defName>
+    <label>iron arrows</label>
+    <parent>AmmoNeolithic</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <!-- Short Bow -->
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_Arrow</defName>
+    <label>arrows</label>
+    <ammoTypes>
+      <Ammo_Arrow_Iron>Projectile_Arrow_Iron</Ammo_Arrow_Iron>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- Recurve Bow -->
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_StreamlinedArrow</defName>
+    <label>arrows</label>
+    <ammoTypes>
+      <Ammo_Arrow_Iron>Projectile_StreamlinedArrow_Iron</Ammo_Arrow_Iron>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="AmmoArrowBase" ParentName="NeolithicAmmoBase" Abstract="True">
+    <description>Simple arrow design with a cutting head attached to a wooden shaft.</description>
+    <statBases>
+      <Mass>0.028</Mass>
+      <Bulk>0.08</Bulk>
+      <Flammability>1</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>AmmoArrows</li>
+    </thingCategories>
+    <stackLimit>5000</stackLimit>
+    <tradeTags>
+      <li>CE_PreIndustrialAmmo</li>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FueledSmithy</li>
+      <li>CE_AutoEnableCrafting_ElectricSmithy</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoArrowBase">
+    <defName>Ammo_Arrow_Iron</defName>
+    <label>arrow (iron)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Iron</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <Mass>0.035</Mass>
+      <MarketValue>0.45</MarketValue>
+    </statBases>
+    <ammoClass>IronArrow</ammoClass>
+  </ThingDef>
+
+  <!-- ================== Projectiles (short bow) ================== -->
+
+  <ThingDef Name="BaseArrowProjectile" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Arrow</damageDef>
+      <speed>24</speed>
+    </projectile>
+  </ThingDef>
+
+  <!-- The amount of arrows usable over the ammo lifetime for each resource cost is equal to
+		[r / (1 - x)];
+			x = preExplosionSpawnChance,
+			r = resource cost. -->
+
+  <ThingDef ParentName="BaseArrowProjectile">
+    <defName>Projectile_Arrow_Iron</defName>
+    <label>arrow (iron)</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrows/Arrow_Iron</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <speed>36</speed>
+      <damageAmountBase>7</damageAmountBase>
+      <armorPenetrationSharp>0.4</armorPenetrationSharp>
+      <armorPenetrationBlunt>3.14</armorPenetrationBlunt>
+      <preExplosionSpawnChance>0.666</preExplosionSpawnChance> <!-- 29.94 arrows per resource -->
+      <preExplosionSpawnThingDef>Ammo_Arrow_Iron</preExplosionSpawnThingDef>
+    </projectile>
+  </ThingDef>
+
+  <!-- ================== Projectiles (Recurve Bow) ================== -->
+
+  <ThingDef Name="BaseStreamlinedArrowProjectile" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>ArrowHighVelocity</damageDef>
+      <speed>22</speed>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseStreamlinedArrowProjectile">
+    <defName>Projectile_StreamlinedArrow_Iron</defName>
+    <label>streamlined arrow (iron)</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrows/Arrow_Iron</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <speed>38</speed>
+      <damageAmountBase>9</damageAmountBase>
+      <armorPenetrationSharp>0.9</armorPenetrationSharp>
+      <armorPenetrationBlunt>6.18</armorPenetrationBlunt>
+      <preExplosionSpawnChance>0.6</preExplosionSpawnChance>
+      <preExplosionSpawnThingDef>Ammo_Arrow_Iron</preExplosionSpawnThingDef>
+    </projectile>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Arrow_Iron</defName>
+    <label>make iron arrows x10</label>
+    <description>Craft 10 iron arrows.</description>
+    <jobString>Making iron arrows.</jobString>
+    <workAmount>300</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>DankPyon_IronIngot</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>DankPyon_IronIngot</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Arrow_Iron>10</Ammo_Arrow_Iron>
+    </products>
+  </RecipeDef>
+
+</Defs>

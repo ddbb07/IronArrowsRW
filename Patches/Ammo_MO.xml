@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Medieval Overhaul</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <operations>
+                <!-- ==================== AmmoSet ========================== -->
+
+                <!-- Hunting Arrows -->
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/CombatExtended.AmmoSetDef[defName="AmmoSet_HuntingArrow"]/ammoTypes</xpath>
+                    <value>
+                        <Ammo_Arrow_Iron>Projectile_HuntingArrow_Iron</Ammo_Arrow_Iron>
+                    </value>
+                </li>
+
+                <!-- War Arrows -->
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/CombatExtended.AmmoSetDef[defName="AmmoSet_WarArrow"]/ammoTypes</xpath>
+                    <value>
+                        <Ammo_GreatArrow_Iron>Projectile_WarArrow_Iron</Ammo_GreatArrow_Iron>
+                    </value>
+                </li>
+
+                <!-- ==================== Projectiles ========================== -->
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs</xpath>
+                    <value>
+
+                        <!-- Hunting Arrows -->
+                        <ThingDef ParentName="BaseStreamlinedArrowProjectile">
+                            <defName>Projectile_HuntingArrow_Iron</defName>
+                            <label>streamlined hunting arrow (Iron)</label>
+                            <graphicData>
+                                <texPath>Things/Projectile/Arrows/Arrow_Iron</texPath>
+                                <graphicClass>Graphic_Single</graphicClass>
+                            </graphicData>
+                            <projectile Class="CombatExtended.ProjectilePropertiesCE">
+                                <speed>33</speed>
+                                <damageAmountBase>12</damageAmountBase> <!-- + 1 -->
+                                <armorPenetrationSharp>1.4</armorPenetrationSharp> <!-- + 0.1 -->
+                                <armorPenetrationBlunt>6.68</armorPenetrationBlunt> <!-- + 0.5 -->
+                                <preExplosionSpawnChance>0.6</preExplosionSpawnChance>
+                                <preExplosionSpawnThingDef>Ammo_Arrow_Iron</preExplosionSpawnThingDef>
+                            </projectile>
+                        </ThingDef>
+
+                        <!-- War Arrows -->
+                        <ThingDef ParentName="BaseGreatArrowProjectile">
+                            <defName>Projectile_WarArrow_Iron</defName>
+                            <label>great war arrow (iron)</label>
+                            <graphicData>
+                                <texPath>Things/Projectile/Arrows/Arrow_Iron</texPath>
+                                <graphicClass>Graphic_Single</graphicClass>
+                            </graphicData>
+                            <projectile Class="CombatExtended.ProjectilePropertiesCE">
+                                <speed>33</speed>
+                                <damageAmountBase>14</damageAmountBase> <!-- + 1 -->
+                                <armorPenetrationBlunt>7.08</armorPenetrationBlunt> <!-- + 0.5 -->
+                                <armorPenetrationSharp>1.8</armorPenetrationSharp> <!-- + 0.2 -->
+                                <preExplosionSpawnChance>0.6</preExplosionSpawnChance> <!-- 25 arrows per resource -->
+                                <preExplosionSpawnThingDef>Ammo_GreatArrow_Iron</preExplosionSpawnThingDef>
+                            </projectile>
+                        </ThingDef>
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+</Patch>

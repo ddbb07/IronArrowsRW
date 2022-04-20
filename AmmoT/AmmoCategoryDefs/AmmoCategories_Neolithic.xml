@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <CombatExtended.AmmoCategoryDef>
+        <defName>IronArrow</defName>
+        <label>iron arrow</label>
+        <labelShort>iron</labelShort>
+        <description>The arrow head is made from iron to enhance armor penetration.</description>
+        <advanced>true</advanced>
+    </CombatExtended.AmmoCategoryDef>
+
+</Defs>
